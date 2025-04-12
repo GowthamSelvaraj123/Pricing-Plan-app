@@ -51,19 +51,23 @@ export default function PlanHighlights() {
             activeNestedTab === "Half Yearly" ? 6 :
             activeNestedTab === "Yearly" ? 12 : 0
         );
-    console.log(channelPrice);
         return Number(basePrice) + installationCharge + channelPrice + ottPrice;
     }, [activeTab, activeNestedTab, activeChannel, activeOtts, price, pricing]);
     const getPlanMessage = () => {
-        if ((["30 Mbps", "50 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) || 
+        if((["30 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) || 
+        activeNestedTab === "Monthly")
+        {
+            return "Installation charges Rs 1500 applicable";
+        }
+        if ((["50 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) || 
             activeNestedTab === "Monthly") {
             return "Installation charges Rs 1000 applicable";
         }
         if (activeNestedTab === "Half Yearly") {
-            return "Subscribe for 5 months & get 1 month free!";
+            return "Our half-yearly plan offers a 7.5% discount.";
         }
         if (activeNestedTab === "Yearly") {
-            return "Subscribe for 10 months & get 2 month free!";
+            return "Our yearly plan offers a 15% discount.";
         }
         return "";
     };

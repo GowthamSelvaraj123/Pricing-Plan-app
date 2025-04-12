@@ -8,24 +8,24 @@ export default function CustomPlansMobile() {
   const [activePlan, setActivePlan] = useState("fixed");
   return (
     <>
-    <div className="mobile-wrap" style={{ display: "none" }}>
- <div className="fixedPlan">
-        <div className="mpbs-tabs">
-                                    <Speed></Speed>
-                                    <BilledCycle></BilledCycle>
-                                    <Channel></Channel>
-                                    <Ott></Ott>
-                                    </div>
-                                    <table>
-                                        <thead></thead>
-                                        <tbody>
-                                        <PlanHighlights></PlanHighlights>
-                                        </tbody>
-                                    </table>
+      <div className="mobile-wrap" style={{ display: "none" }}>
+        <div className="fixedPlan">
+          <div className="mpbs-tabs">
+            <Speed></Speed>
+            <BilledCycle></BilledCycle>
+            <Channel></Channel>
+            <Ott></Ott>
+          </div>
+          <table>
+            <thead></thead>
+            <tbody>
+              <PlanHighlights></PlanHighlights>
+            </tbody>
+          </table>
 
-                                    
-    </div>
-    </div>
+
+        </div>
+      </div>
     </>
   )
 }

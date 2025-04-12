@@ -21,8 +21,10 @@ export default function Ott() {
     };
     return (
         activeOtts && (
+            <>
+            <h3>Exclusive OTT Access</h3>
+            <div className="wrapforplans">
             <div>
-                <h3 style={{ margin: "10px 0" }}>Exclusive OTT Access</h3>
                 <div className="plans-tabs">
                     {ottOptions.map((option) => (
                         <div
@@ -39,6 +41,8 @@ export default function Ott() {
                     ))}
                 </div>
             </div>
+            </div>
+            </>
         )
     );
 }

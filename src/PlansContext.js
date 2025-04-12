@@ -25,15 +25,15 @@ export const PlanProvider = ({ children }) => {
         }
     });
     function generatePricing(basePrice, data, tv, ott, speed) {
-        console.log("Speed received:", speed);
         const isLowSpeed = ["30 Mbps", "50 Mbps"].includes(speed);
         const isHighSpeed = ["100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"].includes(speed);
-        console.log(isLowSpeed);
+        const halfDiscount = Math.round(basePrice * 6 * (1 - 0.075));
+        const fullDiscount = Math.round(basePrice * 12 * (1 - 0.15));
         return {
             Monthly: createPlan(basePrice, data, tv, ott, "Monthly", "1000"),
             Quarterly: createPlan(basePrice * 3, "Unlimited", tv, ott, "Quarterly",  isLowSpeed ? "1000" : "Free"),
-            "Half Yearly": createPlan(basePrice * 5, "Unlimited", tv, ott, "Half Yearly", "Free"),
-            Yearly: createPlan(basePrice * 10, "Unlimited", tv, ott, "Yearly", "Free")
+            "Half Yearly": createPlan(halfDiscount, "Unlimited", tv, ott, "Half Yearly", "Free"),
+            Yearly: createPlan(fullDiscount, "Unlimited", tv, ott, "Yearly", "Free")
         };
     }
     function createPlan(price, data, tv, ott, billingCycle, installation) {
@@ -52,10 +52,10 @@ export const PlanProvider = ({ children }) => {
         };
     }
     const [activeTab, setActiveTab] = useState(planOptions.speeds[0]);
-    const [checkCondition, setCheckCondition] = useState(false);
+    const [checkCondition, setCheckCondition] = useState(true);
     const [activeNestedTab, setActiveNestedTab] = useState(planOptions.billedCycle[0]);
-    const [activeChannel, setActiveChannel] = useState(null);
-    const [activeOtts, setActiveOtts] = useState(null);
+    const [activeChannel, setActiveChannel] = useState(planOptions.tvChannel[0]);
+    const [activeOtts, setActiveOtts] = useState(planOptions.ottOptions[0]);
     const [price, setPrice] = useState( planOptions.pricing?.["30 Mbps"]?.["Monthly"]?.price || 0 );
     return (
         <PlansContext.Provider value={{ planOptions, setPlanOptions, activeTab, setActiveTab, checkCondition, setCheckCondition, activeNestedTab, setActiveNestedTab, activeChannel, setActiveChannel, activeOtts, setActiveOtts, price, setPrice }}>

@@ -15,30 +15,34 @@ export default function Channel() {
     const getLabel = (option) => {
         const activePricing = pricing[activeTab]?.[activeNestedTab]?.tv;
         if (isDisabled(option)) {
-            return ""; 
+            return "";
         }
         return activePricing === option ? " (Included)" : " (Addon)";
     };
     return (
         activeChannel && (
-            <div>
-                <h3 style={{ margin: "10px 0" }}>TV Channels</h3>
-                <div className="plans-tabs">
-                    {tvChannel.map((option) => (
-                        <div
-                            key={option}
-                            className={`plan-tab ${activeChannel === option ? "plan-active" : ""} ${isDisabled(option) ? "disabled" : ""}`}
-                            onClick={() => {
-                                if (!isDisabled(option)) {
-                                    setActiveChannel(option);
-                                }
-                            }}
-                        >
-                            {option}{getLabel(option)}
+            <>
+                <h3>TV Channels</h3>
+                <div className="wrapforplans">
+                    <div>
+                        <div className="plans-tabs">
+                            {tvChannel.map((option) => (
+                                <div
+                                    key={option}
+                                    className={`plan-tab ${activeChannel === option ? "plan-active" : ""} ${isDisabled(option) ? "disabled" : ""}`}
+                                    onClick={() => {
+                                        if (!isDisabled(option)) {
+                                            setActiveChannel(option);
+                                        }
+                                    }}
+                                >
+                                    {option}{getLabel(option)}
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
-            </div>
+            </>
         )
     );
 }

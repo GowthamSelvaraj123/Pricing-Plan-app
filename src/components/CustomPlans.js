@@ -17,8 +17,8 @@ export default function CustomPlans() {
     const billingCycleMultipliers = {
         Monthly: 1,
         Quarterly: 3,
-        "Half Yearly": 5,
-        Yearly: 10,
+        "Half Yearly": 6,
+        Yearly: 12,
     };
     
     const billingAddonMultipliers = {
@@ -60,8 +60,8 @@ export default function CustomPlans() {
     
     const planMessages = {
         Monthly: isLowSpeed && ["Monthly", "Quarterly"].includes(activeNestedTab) ? "Installation charges Rs 1000 applicable" : "",
-        "Half Yearly": "Our half-yearly plan is billed for 5 months",
-        Yearly: "Our yearly plan is billed for 10 months",
+        "Half Yearly": "Our half-yearly plan offers a 7.5% discount.",
+        Yearly: "Our yearly plan offers a 15% discount.",
     };
     
     const planMessage = planMessages[activeNestedTab] || "";
@@ -87,7 +87,7 @@ export default function CustomPlans() {
                         </span>
                     </h3>
                     <div className="tv-channels"><CurrentChannel activeChannel={activeChannel} setActiveChannel={setActiveChannel} />
-                    <a href={`https://beta1.skylink.net.in/wp-content/uploads/pdf/${activeChannel === "350+ Channels" ? "skylink-basic.pdf" : activeChannel === "550+ Channels" ? "skylink-mini.pdf" : activeChannel === "650+ Channels" ? "skylink-pro.pdf" : "skylink-basic.pdf"}`} target="_blank" > Download Brochure </a>
+                    <a href={`https://beta1.skylink.net.in/wp-content/uploads/pdf/${activeChannel === "350+ Channels" ? "skylink-mini.pdf" : activeChannel === "550+ Channels" ? "skylink-pro.pdf" : activeChannel === "650+ Channels" ? "skylink-pro.pdf" : "skylink-pro.pdf"}`} target="_blank" > Download Brochure </a>
                     </div>
                 </div>
                 <div className="addon-price-wrap">
