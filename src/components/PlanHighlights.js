@@ -20,7 +20,9 @@ export default function PlanHighlights() {
             "650+ Channels": 249,
             "950+ Channels": 399,
             "21+ OTTs": 149,
-            "29+ OTTs": 259
+            "22+ OTTs": 259, 
+            "29+ OTTs":359, 
+            "30+ OTTs":459
         };
         return pricingMap[type] ? pricingMap[type] * quantity : 0;
     };

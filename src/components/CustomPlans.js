@@ -50,7 +50,9 @@ export default function CustomPlans() {
 
     const ottPrices = {
         "21+ OTTs": 149,
-        "29+ OTTs": 259,
+        "22+ OTTs": 249,
+        "29+ OTTs": 349,
+        "30+ OTTs": 349,
     };
 
     const channelPrice = (channelPrices[activeChannel] || 0) * billingAddonCycleMultiplier;
@@ -58,6 +60,8 @@ export default function CustomPlans() {
     const ottPrice = (ottPrices[activeOtts] || 0) * billingAddonCycleMultiplier;
 
     const totalPrice = Number(basePrice) + installationCost + channelPrice + ottPrice;
+    const gstAmount = Math.round(totalPrice * 0.18);
+    const withGst = totalPrice + gstAmount;
     let installationMessage = "";
     if (["Monthly", "Quarterly"].includes(activeNestedTab)) {
         if (activeTab === "30 Mbps") {
@@ -144,7 +148,7 @@ export default function CustomPlans() {
             </div>
             <div className="pricing-features">
                 <span className="price">
-                    Price: <i className="fas fa-rupee-sign"></i> {totalPrice} <span className="gst-text">* Exclude GST 18%</span>
+                    Price: <i className="fas fa-rupee-sign"></i> {withGst}.00
                     {planMessage && (
                         <span
                             style={{
@@ -154,12 +158,12 @@ export default function CustomPlans() {
                                 marginTop: "10px",
                             }}
                         >
-                            {planMessage}
+                            {planMessage} * Include GST 18%
                         </span>
                     )}
                 </span>
                 <div className="subscribe-wrap">
-                    <button className="subscribe" data-price={totalPrice}
+                    <button className="subscribe" data-price={withGst}
                         data-active-tab={activeTab}
                         data-active-nested-tab={activeNestedTab}
                         data-active-channel={activeChannel}

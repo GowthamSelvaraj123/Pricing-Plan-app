@@ -4,6 +4,7 @@ import BilledCycle from './BilledCycle'
 import Channel from './Channel'
 import Ott from './Ott'
 import PlanHighlights from './PlanHighlights'
+import CustomPlans from './CustomPlans'
 export default function CustomPlansMobile() {
   const [activePlan, setActivePlan] = useState("fixed");
   return (
@@ -22,8 +23,7 @@ export default function CustomPlansMobile() {
               <PlanHighlights></PlanHighlights>
             </tbody>
           </table>
-
-
+          <CustomPlans></CustomPlans>
         </div>
       </div>
     </>
