@@ -11,7 +11,6 @@ function App() {
           <Tab></Tab>
         </PlanProvider>
       </header>
-      test
     </div>
   );
 }
