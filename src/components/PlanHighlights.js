@@ -4,15 +4,15 @@ import CurrentChannel from "./CurrentChannel";
 import CurrentOTT from "./CurrentOTT";
 
 export default function PlanHighlights() {
-    const { 
-        planOptions: { pricing }, 
-        activeTab, 
-        activeNestedTab, 
-        activeChannel, 
-        setActiveChannel, 
-        activeOtts, 
+    const {
+        planOptions: { pricing },
+        activeTab,
+        activeNestedTab,
+        activeChannel,
+        setActiveChannel,
+        activeOtts,
         setActiveOtts,
-        price 
+        price
     } = usePlans();
     const calculateAddonPrice = (type, quantity) => {
         const pricingMap = {
@@ -26,44 +26,43 @@ export default function PlanHighlights() {
     };
     const [colSpan, setColSpan] = useState(1);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setColSpan(window.innerWidth <= 1024 ? 2 : 1);
-    };
+    useEffect(() => {
+        const handleResize = () => {
+            setColSpan(window.innerWidth <= 1024 ? 2 : 1);
+        };
 
-    handleResize(); // Set initial value
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+        handleResize(); // Set initial value
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
     const calculatePlanPrice = useMemo(() => {
         const basePrice = pricing[activeTab]?.[activeNestedTab]?.price || price;
         const installationCharge =
-        (activeTab === "30 Mbps" && ["Monthly", "Quarterly"].includes(activeNestedTab))
-            ? 1500
-            : (activeTab === "50 Mbps" && ["Monthly", "Quarterly"].includes(activeNestedTab))
-                ? 1000
-                : (["100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"].includes(activeTab) && activeNestedTab === "Monthly")
+            (activeTab === "30 Mbps" && ["Monthly", "Quarterly"].includes(activeNestedTab))
+                ? 1500
+                : (activeTab === "50 Mbps" && ["Monthly", "Quarterly"].includes(activeNestedTab))
                     ? 1000
-                    : 0;
+                    : (["100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"].includes(activeTab) && activeNestedTab === "Monthly")
+                        ? 1000
+                        : 0;
         const isAddonChannel = (channel) => {
             return pricing[activeTab]?.[activeNestedTab]?.tv !== channel;
         };
-        const channelPrice = calculateAddonPrice( activeChannel, activeNestedTab === "Monthly" ? 1 : activeNestedTab === "Quarterly" ? 3 : activeNestedTab === "Half Yearly" ? 6 : activeNestedTab === "Yearly" ? 12 : 0 );
-        const ottPrice = calculateAddonPrice(activeOtts, 
+        const channelPrice = calculateAddonPrice(activeChannel, activeNestedTab === "Monthly" ? 1 : activeNestedTab === "Quarterly" ? 3 : activeNestedTab === "Half Yearly" ? 6 : activeNestedTab === "Yearly" ? 12 : 0);
+        const ottPrice = calculateAddonPrice(activeOtts,
             activeNestedTab === "Monthly" ? 1 :
-            activeNestedTab === "Quarterly" ? 3 :
-            activeNestedTab === "Half Yearly" ? 6 :
-            activeNestedTab === "Yearly" ? 12 : 0
+                activeNestedTab === "Quarterly" ? 3 :
+                    activeNestedTab === "Half Yearly" ? 6 :
+                        activeNestedTab === "Yearly" ? 12 : 0
         );
         return Number(basePrice) + installationCharge + channelPrice + ottPrice;
     }, [activeTab, activeNestedTab, activeChannel, activeOtts, price, pricing]);
     const getPlanMessage = () => {
-        if((["30 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) || 
-        activeNestedTab === "Monthly")
-        {
+        if ((["30 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) ||
+            activeNestedTab === "Monthly") {
             return "Installation charges Rs 1500 applicable";
         }
-        if ((["50 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) || 
+        if ((["50 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) ||
             activeNestedTab === "Monthly") {
             return "Installation charges Rs 1000 applicable";
         }
@@ -75,50 +74,74 @@ export default function PlanHighlights() {
         }
         return "";
     };
-    {console.log(pricing[activeTab]?.[activeNestedTab]?.benefits)}
+    { console.log(pricing[activeTab]?.[activeNestedTab]?.benefits) }
     return (
         <>
-            <tr className="benefitswrap">
+            <tr className="benefitswrap" style={{ "display": "none" }}>
                 <td colSpan="2">
                     <div className="benifts-tabs">
                         <h3>Plan Highlights</h3>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>Speed</td>
-                <td>{activeTab}</td>
-            </tr>
-            {pricing[activeTab]?.[activeNestedTab]?.benefits.map((benefit, index) => (
-                <tr key={`${activeTab}-benefit-${index}`}>
-                    <td>
-                        <div className="table-channel">
-                            {benefit.name}
-                            {benefit.name === "TV Channels" && (
-                                 <div className="tv-channels"><CurrentChannel benefit={benefit} activeChannel={activeChannel} setActiveChannel={setActiveChannel} /></div>
-                            )}
-                            {benefit.name.startsWith("OTT") && ["21+ OTTs", "22+ OTTs", "29+ OTTs", "30+ OTTs"].includes(String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()) && (
-                                <CurrentOTT activeOtts={String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()} activeTab={activeTab} activeNestedTab={activeNestedTab} />
-                            )}
+            <tr className="features-row">
+                <td colSpan={2}>
+                    <div className="featuresContainer">
+                        <h3>Plan Highlights</h3>
+                        <div className="features">
+                            <div className="featuresWrap">
+                            <div className="table-channel">
+                                        <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/speed-icon.svg" /></div>
+                                        </div>
+                                        <div className="featuresDescription">{activeTab}</div><div className="featuresTitle">Speed</div></div>
+                            {pricing[activeTab]?.[activeNestedTab]?.benefits.map((benefit, index) => (
+                                <div className="featuresWrap" key={`${activeTab}-benefit-${index}`}>
+                                    <div className="table-channel">
+                                        {benefit.name === "TV Channels" && (
+                                            <div className="tv-channels"><CurrentChannel benefit={benefit} activeChannel={activeChannel} setActiveChannel={setActiveChannel} /></div>
+                                        )}
+                                        {benefit.name.startsWith("Billing Cycle") && (
+                                        <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/billing-cycle.svg" /></div>)
+                                        }
+                                        {benefit.name.startsWith("24/7 Elite Support") && (
+                                        <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/elite-support.svg" /></div>)
+                                        }
+                                        {benefit.name.startsWith("Installation") && (
+                                        <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/installation.svg" /></div>)
+                                        }
+                                        {benefit.name.startsWith("OTT") && ["21+ OTTs", "22+ OTTs", "29+ OTTs", "30+ OTTs"].includes(String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()) && (
+                                            <CurrentOTT activeOtts={String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()} activeTab={activeTab} activeNestedTab={activeNestedTab} />
+                                        )}
+                                    </div>
+                                    <div className="featuresDescription"><div className="" key={`${activeTab}-benefit-${index}`}>{benefit.lite}</div></div>
+                                    <div className="featuresTitle">{benefit.name}</div>
+                                </div>
+                            ))}
+
+                            {[
+                                { title: "Channels Addon Pack", price: calculateAddonPrice(activeChannel, 1) },
+                                { title: "OTT's Addon Pack", price: calculateAddonPrice(activeOtts, 1) }
+                            ].map((item, index) => (
+                                <div className="featuresWrap" key={index}>
+                                    <div className="table-channel">
+                                    {item.title.startsWith("Channels Addon Pack") && (
+                                        <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/telivision.svg" /></div>)
+                                        }
+                                         {item.title.startsWith("OTT's Addon Pack") && (
+                                        <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/film-roll.svg" /></div>)
+                                        }
+                                        </div>
+                                        <div className="featuresDescription"><i className="fas fa-rupee-sign" style={{ fontSize: "10px" }}></i> {item.price}</div>
+                                    <div className="featuresTitle">{item.title}</div>
+                                </div>
+                            ))}
                         </div>
-                    </td>
-                    <td key={`${activeTab}-benefit-${index}`}>{benefit.lite}</td>
-                </tr>
-            ))}
-            {[
-                { title: "Channels Addon Pack", price: calculateAddonPrice(activeChannel, 1) },
-                { title: "OTT's Addon Pack", price: calculateAddonPrice(activeOtts, 1) }
-            ].map((item, index) => (
-                <tr key={index}>
-                    <td>{item.title}</td>
-                    <td>
-                        <i className="fas fa-rupee-sign" style={{ fontSize: "10px" }}></i> {item.price}
-                    </td>
-                </tr>
-            ))}
-            <tr>
+                    </div>
+                </td>
+            </tr>
+            <tr style={{ "display": "none" }}>
                 <td className="padding-0 highlights-page-image">
-                    <img width="100%" src="https://skylink.net.in/wp-content/uploads/2025/03/dummy-banner.png" alt="Plan Banner" />
+                    <img width="100%" style={{ "width": "100%" }} src="https://skylink.net.in/wp-content/uploads/2025/03/dummy-banner.png" alt="Plan Banner" />
                 </td>
                 <td className="pricing-features-wrap" colSpan={colSpan}>
                     <div className="pricing-features">
@@ -136,7 +159,7 @@ export default function PlanHighlights() {
                             </span>
                         </span>
                     </div>
-                    <button className="subscribe new"  data-price={calculatePlanPrice} data-active-tab={activeTab} data-active-nested-tab={activeNestedTab} data-active-channel={activeChannel} data-active-otts={activeOtts}>Subscribe Now</button>
+                    <button className="subscribe new" data-price={calculatePlanPrice} data-active-tab={activeTab} data-active-nested-tab={activeNestedTab} data-active-channel={activeChannel} data-active-otts={activeOtts}>Subscribe Now</button>
                 </td>
             </tr>
         </>

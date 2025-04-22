@@ -22,7 +22,8 @@ export default function Channel() {
     return (
         activeChannel && (
             <>
-                <h3>Choose Your TV Channels</h3>
+            <div className="yellowWrap">
+                <h3 className='yellowFont'>Choose Your TV Channels</h3>
                 <div className="wrapforplans yellow">
                     <div>
                         <div className="plans-tabs">
@@ -41,6 +42,7 @@ export default function Channel() {
                             ))}
                         </div>
                     </div>
+                </div>
                 </div>
             </>
         )

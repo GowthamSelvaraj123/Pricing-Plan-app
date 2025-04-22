@@ -44,7 +44,7 @@ export default function CurrentChannel({ activeChannel }) {
                         <img key={index} src={src} alt="TV Channel" />
                     ))}
                 <p>
-                    + {selectedPackage.additional} Channels {selectedPackage.suffix || ""}
+                    {/* + {selectedPackage.additional} Channels {selectedPackage.suffix || ""} */}
                 </p>
             </div>
     );

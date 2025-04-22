@@ -7,8 +7,9 @@ export default function BilledCycle() {
     return (
         checkCondition && (
             <>
-                <h3>Choose Your Billing Cycle</h3>
-                <div className="wrapforplans">
+            <div className="redWrap">
+                <h3 className="redFont">Choose Your Billing Cycle</h3>
+                <div className="wrapforplans redBorder">
                     <div>
                         <div className="plans-tabs">
                             {billedCycle.map((option) => (
@@ -24,6 +25,7 @@ export default function BilledCycle() {
                             ))}
                         </div>
                     </div>
+                </div>
                 </div>
             </>
         )

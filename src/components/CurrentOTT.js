@@ -25,7 +25,7 @@ export default function CurrentOTT({ activeOtts, activeTab, activeNestedTab }) {
             setSelectedOTT([]);
         }
     }, [activeOtts, activeTab, activeNestedTab]);
-    if (!["21+ OTTs", "29+ OTTs"].includes(activeOtts)) return null;
+    if (!["21+ OTTs", "22+ OTTs", "29+ OTTs", "30+ OTTs"].includes(activeOtts)) return null;
 
     return (
         <div className="ott-section">

@@ -6,7 +6,8 @@ export default function Speed() {
 
   return (
     <>
-      <h3 style={{ marginTop: "0px" }}>Choose Your BandWidth</h3>
+    <div className="blueWrap">
+      <h3 style={{ marginTop: "0px" }} className="bluefont">Choose Your BandWidth</h3>
       <div className="wrapforplans blue">
         <div className="mbps-wrap">
           {speeds.map((speed) => (
@@ -24,6 +25,7 @@ export default function Speed() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </>
   );

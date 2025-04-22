@@ -97,37 +97,50 @@ export default function CustomPlans() {
 
     return (
         <div className="custom-plan-inner-wrap">
+            <div className="firstset">
+            <img  style={{"width":"100%"}}
+                        src="https://skylink.net.in/wp-content/uploads/2025/03/plan-webupdates.jpg"
+                        alt="Plan Update"
+                    />
+            <h1 style={{ fontSize: "24px" }}>Selected Plan Details</h1>
             <div className="plan-details-features">
                 <span className="plan-details-feature-list">
-                    <span className="feature-list-head">Speed</span> {activeTab}
+                    <span className="feature-list-head">Speed</span> <span className="feature-list-ans">{activeTab}</span>
                 </span>
                 <span className="plan-details-feature-list">
-                    <span className="feature-list-head">Billing Cycle</span> {staticBasePrice} * {billingCycleMultiplier}
+                    <span className="feature-list-head">Billing Cycle</span> <span className="feature-list-ans">{staticBasePrice} * {billingCycleMultiplier}</span>
                 </span>
                 <span className="plan-details-feature-list">
-                    <span className="feature-list-head">Installation</span> {installationCost}
+                    <span className="feature-list-head">Installation</span> <span className="feature-list-ans">{installationCost}</span>
                 </span>
                 <div className="addon-price-wrap">
                     <h3>
                         <div className="tv-channel-title">TV Channels - {activeChannel || pricing?.[activeTab]?.[activeNestedTab]?.tv} <span className="hd-mention-text">{activeChannel === "650+ Channels" ? "(94+ HD)" : activeChannel === "950+ Channels" ? "(ALL HD)" : ""}
                         </span></div>
+                        <span className="feature-list-ans">
                         <span className="addon-price">
                             <i style={{ fontSize: "10px" }} className="fas fa-rupee-sign"></i> {channelPrices[activeChannel] || 0} * {billingAddonCycleMultiplier}
                         </span>
+                        </span>
                     </h3>
-                    <div className="tv-channels"><CurrentChannel activeChannel={activeChannel} setActiveChannel={setActiveChannel} />
+                    <div className="tv-channels" style={{"display":"none"}}><CurrentChannel activeChannel={activeChannel} setActiveChannel={setActiveChannel} />
                         <a href={`https://skylink.net.in/wp-content/uploads/pdf/${activeChannel === "350+ Channels" ? "skylink-mini.pdf" : activeChannel === "550+ Channels" ? "skylink-pro.pdf" : activeChannel === "650+ Channels" ? "skylink-pro.pdf" : "skylink-pro.pdf"}`} target="_blank" > Download Brochure </a>
                     </div>
                 </div>
                 <div className="addon-price-wrap">
                     <h3>
                         OTT List - {activeOtts || pricing?.[activeTab]?.[activeNestedTab]?.ott}
+                        <span className="feature-list-ans">
                         <span className="addon-price">
                             <i style={{ fontSize: "10px" }} className="fas fa-rupee-sign"></i> {ottPrices[activeOtts] || 0} * {billingAddonCycleMultiplier}
                         </span>
-                    </h3>
+                        </span>
+                    </h3>  
+                    <div style={{"display":"none"}}>
                     <CurrentOTT activeOtts={String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()} activeTab={activeTab} activeNestedTab={activeNestedTab} />
+                    </div>
                 </div>
+            </div>
             </div>
             <div className="pricing-features">
                 <span className="price">
@@ -151,7 +164,7 @@ export default function CustomPlans() {
                         data-active-nested-tab={activeNestedTab}
                         data-active-channel={activeChannel}
                         data-active-otts={activeOtts}>Subscribe Now</button>
-                    <img
+                    <img  style={{"width":"100%", "display":"none"}}
                         src="https://skylink.net.in/wp-content/uploads/2025/03/plan-webupdates.jpg"
                         alt="Plan Update"
                     />

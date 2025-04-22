@@ -10,14 +10,10 @@ import CustomPlansMobile from '../components/CustomPlansMobile'
 export default function Tab() {
     return (
         <>
+                    <h1 style={{ textAlign: "left" }}>Get Customize Plans</h1>
             <div className="tab-wrap" style={{ display: "flex" }}>
                 <div className="table-wrap">
                     <table>
-                        <thead>
-                            <tr className="main-title">
-                                <td colSpan="2"><h1 style={{ textAlign: "left" }}>Our Affordable Internet Deals for Everyone</h1></td>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr className="speed-tabs-wrapper">
                                 <td colSpan="2">
@@ -32,7 +28,6 @@ export default function Tab() {
                     </table>
                 </div>
                 <div className="custom-plans">
-                <h1 style={{ fontSize: "24px" }}>Plan Details</h1>
                 <CustomPlans></CustomPlans>
                 </div>
             </div>
