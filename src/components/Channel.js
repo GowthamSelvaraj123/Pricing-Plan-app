@@ -17,13 +17,13 @@ export default function Channel() {
         if (isDisabled(option)) {
             return "";
         }
-        return activePricing === option ? " (Included)" : " (Addon)";
+        return activePricing === option ? " (Free)" : " (Add-on)";
     };
     return (
         activeChannel && (
             <>
-                <h3>TV Channels</h3>
-                <div className="wrapforplans">
+                <h3>Choose Your TV Channels</h3>
+                <div className="wrapforplans yellow">
                     <div>
                         <div className="plans-tabs">
                             {tvChannel.map((option) => (
@@ -36,7 +36,7 @@ export default function Channel() {
                                         }
                                     }}
                                 >
-                                    {option}{getLabel(option)}
+                                    {option}<span className='include-wrap'>{getLabel(option)}</span>
                                 </div>
                             ))}
                         </div>

@@ -10,15 +10,15 @@ const tvPackages = [
 
 export default function CurrentChannel({ activeChannel }) {
     const baseImages = [
-        "https://beta1.skylink.net.in/wp-content/uploads/2025/02/sun-tv.svg",
-        "https://beta1.skylink.net.in/wp-content/uploads/2025/02/vijay-tv.webp",
-        "https://beta1.skylink.net.in/wp-content/uploads/2025/02/zee-tamil.png",
+        "https://skylink.net.in/wp-content/uploads/2025/02/sun-tv.svg",
+        "https://skylink.net.in/wp-content/uploads/2025/02/vijay-tv.webp",
+        "https://skylink.net.in/wp-content/uploads/2025/02/zee-tamil.png",
     ];
 
     const extendedImages = [
-        "https://beta1.skylink.net.in/wp-content/uploads/2025/02/colors-tv-channel.png",
-        "https://beta1.skylink.net.in/wp-content/uploads/2025/03/Discovery_HD_World.png",
-        "https://beta1.skylink.net.in/wp-content/uploads/2025/03/National_Geographic_Channel.svg.png",
+        "https://skylink.net.in/wp-content/uploads/2025/02/colors-tv-channel.png",
+        "https://skylink.net.in/wp-content/uploads/2025/03/Discovery_HD_World.png",
+        "https://skylink.net.in/wp-content/uploads/2025/03/National_Geographic_Channel.svg.png",
         "https://www.skylink.net.in/wp-content/uploads/2025/02/star-sports-logo-channel.png"
     ];
 

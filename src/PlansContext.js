@@ -10,18 +10,19 @@ export const PlanProvider = ({ children }) => {
             { name: "24/7 Elite Support", lite: "Yes" },
             { name: "Installation", lite: "1000" }
         ],
-        speeds: ["30 Mbps", "50 Mbps", "100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"],
-        ottOptions: ["Don't Want OTT's", "12+ OTTs", "25+ OTTs"],
+        speeds: ["30 Mbps", "50 Mbps", "100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps", "2000 Mbps"],
+        ottOptions: ["21+ OTTs", "22+ OTTs", "29+ OTTs", "30+ OTTs"],
         tvChannel: ["350+ Channels", "550+ Channels", "650+ Channels", "950+ Channels"],
         billedCycle: ["Monthly", "Quarterly", "Half Yearly", "Yearly"],
         pricing: {
-            "30 Mbps": generatePricing(399, "1500GB", "350+ Channels", "Don't Want OTT's", "30 Mbps"),
-            "50 Mbps": generatePricing(499, "Unlimited", "350+ Channels", "Don't Want OTT's", "50 Mbps"),
-            "100 Mbps": generatePricing(699, "Unlimited", "350+ Channels", "Don't Want OTT's", "100 Mbps"),
-            "200 Mbps": generatePricing(999, "Unlimited", "550+ Channels", "12+ OTTs", "200 Mbps"),
-            "300 Mbps": generatePricing(1299, "Unlimited", "550+ Channels", "25+ OTTs", "300 Mbps"),
-            "500 Mbps": generatePricing(1499, "Unlimited", "650+ Channels", "25+ OTTs", "500 Mbps"),
-            "1000 Mbps": generatePricing(1999, "Unlimited", "650+ Channels", "25+ OTTs", "1000 Mbps"),
+            "30 Mbps": generatePricing(399, "1500GB", "350+ Channels", "21+ OTTs", "30 Mbps"),
+            "50 Mbps": generatePricing(499, "Unlimited", "350+ Channels", "22+ OTTs", "50 Mbps"),
+            "100 Mbps": generatePricing(699, "Unlimited", "350+ Channels", "29+ OTTs", "100 Mbps"),
+            "200 Mbps": generatePricing(999, "Unlimited", "550+ Channels", "29+ OTTs", "200 Mbps"),
+            "300 Mbps": generatePricing(1299, "Unlimited", "550+ Channels", "29+ OTTs", "300 Mbps"),
+            "500 Mbps": generatePricing(1499, "Unlimited", "650+ Channels", "29+ OTTs", "500 Mbps"),
+            "1000 Mbps": generatePricing(1999, "Unlimited", "650+ Channels", "29+ OTTs", "1000 Mbps"),
+            "2000 Mbps": generatePricing(1999, "Unlimited", "650+ Channels", "29+ OTTs", "1000 Mbps"),
         }
     });
     function generatePricing(basePrice, data, tv, ott, speed) {

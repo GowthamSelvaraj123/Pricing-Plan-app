@@ -2,12 +2,12 @@ import React from 'react';
 import { usePlans } from '../PlansContext';
 
 export default function Speed() {
-  const { planOptions: { speeds, pricing }, activeTab, setActiveTab, activeNestedTab, setActiveNestedTab, setCheckCondition, setActiveChannel, setActiveOtts } = usePlans();
+  const { planOptions: { speeds, pricing }, activeTab, setActiveTab, activeNestedTab, setActiveNestedTab, setActiveChannel, setActiveOtts } = usePlans();
 
   return (
     <>
-      <h3 style={{ marginTop: "0px" }}>Pick Your Perfect BandWidth</h3>
-      <div className="wrapforplans">
+      <h3 style={{ marginTop: "0px" }}>Choose Your BandWidth</h3>
+      <div className="wrapforplans blue">
         <div className="mbps-wrap">
           {speeds.map((speed) => (
             <div

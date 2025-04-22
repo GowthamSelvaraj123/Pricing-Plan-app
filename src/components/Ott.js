@@ -2,28 +2,28 @@ import React from 'react';
 import { usePlans } from '../PlansContext';
 
 export default function Ott() {
-    const { planOptions: { ottOptions, pricing }, activeTab, activeNestedTab, activeOtts, setActiveOtts, activeChannel } = usePlans();
+    const { planOptions: { ottOptions, pricing }, activeTab, activeNestedTab, activeOtts, setActiveOtts} = usePlans();
 
     const isDisabled = (option) => {
-        const activePricing = pricing[activeTab][activeNestedTab].ott;
-        return (
-            ["12+ OTTs", "25+ OTTs"].includes(activePricing) &&
-            ((activePricing === "12+ OTTs" && ["Don't Want OTT's"].includes(option)) ||
-            (activePricing === "25+ OTTs" && ["12+ OTTs", "Don't Want OTT's"].includes(option)))
-        );
+        const activePricing = pricing[activeTab]?.[activeNestedTab]?.ott;
+        
+        // Get index of the activePricing and the option in the ottOptions array
+        const activeIndex = ottOptions.indexOf(activePricing);
+        const optionIndex = ottOptions.indexOf(option);
+        
+        // Disable option if it is lesser than the active plan
+        return optionIndex !== -1 && optionIndex < activeIndex;
     };
     const getLabel = (option) => {
         const activePricing = pricing[activeTab]?.[activeNestedTab]?.ott;
-        if (isDisabled(option)) {
-            return ""; 
-        }
-        return activePricing === option ? " (Included)" : " (Addon)";
+        if (isDisabled(option)) return "";
+        return activePricing === option ? " (Free)" : " (Add-on)";
     };
     return (
         activeOtts && (
             <>
-            <h3>Exclusive OTT Access</h3>
-            <div className="wrapforplans">
+            <h3>Choose Your OTT's</h3>
+            <div className="wrapforplans green">
             <div>
                 <div className="plans-tabs">
                     {ottOptions.map((option) => (
@@ -31,7 +31,7 @@ export default function Ott() {
                             key={option}
                             className={`plan-tab ${activeOtts === option ? "plan-active" : ""} ${isDisabled(option) ? "disabled" : ""}`}
                             onClick={() => {
-                                if (!isDisabled(option) && option !== "Don't Want OTT's") {
+                                if (!isDisabled(option)) {
                                     setActiveOtts(option);
                                 }
                             }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { act, useEffect, useMemo, useState } from "react";
 import { usePlans } from "../PlansContext";
 import CurrentChannel from "./CurrentChannel";
 import CurrentOTT from "./CurrentOTT";
@@ -11,6 +11,7 @@ export default function PlanHighlights() {
         activeChannel, 
         setActiveChannel, 
         activeOtts, 
+        setActiveOtts,
         price 
     } = usePlans();
     const calculateAddonPrice = (type, quantity) => {
@@ -18,8 +19,8 @@ export default function PlanHighlights() {
             "550+ Channels": 149,
             "650+ Channels": 249,
             "950+ Channels": 399,
-            "12+ OTTs": 149,
-            "25+ OTTs": 259
+            "21+ OTTs": 149,
+            "29+ OTTs": 259
         };
         return pricingMap[type] ? pricingMap[type] * quantity : 0;
     };
@@ -37,10 +38,13 @@ export default function PlanHighlights() {
     const calculatePlanPrice = useMemo(() => {
         const basePrice = pricing[activeTab]?.[activeNestedTab]?.price || price;
         const installationCharge =
-            (["30 Mbps", "50 Mbps"].includes(activeTab) && ["Monthly", "Quarterly"].includes(activeNestedTab)) ||
-            (["100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"].includes(activeTab) && activeNestedTab === "Monthly")
+        (activeTab === "30 Mbps" && ["Monthly", "Quarterly"].includes(activeNestedTab))
+            ? 1500
+            : (activeTab === "50 Mbps" && ["Monthly", "Quarterly"].includes(activeNestedTab))
                 ? 1000
-                : 0;
+                : (["100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"].includes(activeTab) && activeNestedTab === "Monthly")
+                    ? 1000
+                    : 0;
         const isAddonChannel = (channel) => {
             return pricing[activeTab]?.[activeNestedTab]?.tv !== channel;
         };
@@ -71,6 +75,7 @@ export default function PlanHighlights() {
         }
         return "";
     };
+    {console.log(pricing[activeTab]?.[activeNestedTab]?.benefits)}
     return (
         <>
             <tr className="benefitswrap">
@@ -92,12 +97,12 @@ export default function PlanHighlights() {
                             {benefit.name === "TV Channels" && (
                                  <div className="tv-channels"><CurrentChannel benefit={benefit} activeChannel={activeChannel} setActiveChannel={setActiveChannel} /></div>
                             )}
-                            {benefit.name.startsWith("OTT") && ["12+ OTTs", "25+ OTTs"].includes(String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()) && (
+                            {benefit.name.startsWith("OTT") && ["21+ OTTs", "22+ OTTs", "29+ OTTs", "30+ OTTs"].includes(String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()) && (
                                 <CurrentOTT activeOtts={String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()} activeTab={activeTab} activeNestedTab={activeNestedTab} />
                             )}
                         </div>
                     </td>
-                    <td>{benefit.lite}</td>
+                    <td key={`${activeTab}-benefit-${index}`}>{benefit.lite}</td>
                 </tr>
             ))}
             {[
@@ -113,12 +118,12 @@ export default function PlanHighlights() {
             ))}
             <tr>
                 <td className="padding-0 highlights-page-image">
-                    <img width="100%" src="https://beta1.skylink.net.in/wp-content/uploads/2025/03/dummy-banner.png" alt="Plan Banner" />
+                    <img width="100%" src="https://skylink.net.in/wp-content/uploads/2025/03/dummy-banner.png" alt="Plan Banner" />
                 </td>
                 <td className="pricing-features-wrap" colSpan={colSpan}>
                     <div className="pricing-features">
                         <span className="price">
-                            Price: <i className="fas fa-rupee-sign"></i> {calculatePlanPrice}
+                            Price: <i className="fas fa-rupee-sign"></i> {calculatePlanPrice} <span className="gst-text">* Exclude GST 18%</span>
                             <span
                                 style={{
                                     fontSize: "14px",

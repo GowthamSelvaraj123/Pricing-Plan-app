@@ -7,7 +7,7 @@ export default function BilledCycle() {
     return (
         checkCondition && (
             <>
-                <h3>Pick your Flexible Billing Cycle</h3>
+                <h3>Choose Your Billing Cycle</h3>
                 <div className="wrapforplans">
                     <div>
                         <div className="plans-tabs">
