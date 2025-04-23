@@ -13,6 +13,7 @@ const ottPackages = {
         "https://skylink.net.in/wp-content/uploads/2023/07/ZEE5.svg",
         "https://skylink.net.in/wp-content/uploads/2023/07/sonyliv.svg",
         "https://skylink.net.in/wp-content/uploads/2023/07/aha.svg",
+        "https://www.skylink.net.in/wp-content/uploads/2025/02/Amazon_Prime_Video_logo_2024.svg.png"
     ],
 };
 export default function CurrentOTT({ activeOtts, activeTab, activeNestedTab }) {

@@ -13,13 +13,19 @@ export default function CurrentChannel({ activeChannel }) {
         "https://skylink.net.in/wp-content/uploads/2025/02/sun-tv.svg",
         "https://skylink.net.in/wp-content/uploads/2025/02/vijay-tv.webp",
         "https://skylink.net.in/wp-content/uploads/2025/02/zee-tamil.png",
+        "https://www.skylink.net.in/wp-content/uploads/2025/03/661-DD-TAMIL.png", 
+        "https://www.skylink.net.in/wp-content/uploads/2025/03/tune-music.webp",
+        "https://www.skylink.net.in/wp-content/uploads/2025/03/britain-bhakti.jpg", 
+        "https://www.skylink.net.in/wp-content/uploads/2025/03/ktv-logo.png", 
+        "https://www.skylink.net.in/wp-content/uploads/2025/03/kalaignar_logo.png", 
     ];
 
     const extendedImages = [
         "https://skylink.net.in/wp-content/uploads/2025/02/colors-tv-channel.png",
         "https://skylink.net.in/wp-content/uploads/2025/03/Discovery_HD_World.png",
         "https://skylink.net.in/wp-content/uploads/2025/03/National_Geographic_Channel.svg.png",
-        "https://www.skylink.net.in/wp-content/uploads/2025/02/star-sports-logo-channel.png"
+        "https://www.skylink.net.in/wp-content/uploads/2025/02/star-sports-logo-channel.png",
+        "https://www.skylink.net.in/wp-content/uploads/2025/03/star-movies-tv.png", 
     ];
 
     // ✅ Set default package to "350+ Channels"

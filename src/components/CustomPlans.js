@@ -1,11 +1,11 @@
-import React from "react";
+import React, { act } from "react";
 import { usePlans } from "../PlansContext";
 import CurrentChannel from "./CurrentChannel";
 import CurrentOTT from "./CurrentOTT";
 
 export default function CustomPlans() {
     const {
-        planOptions: { pricing },
+        planOptions: { ottOptions, pricing },
         activeTab,
         activeNestedTab,
         price,
@@ -27,15 +27,12 @@ export default function CustomPlans() {
         "Half Yearly": 6,
         Yearly: 12,
     };
-
     const billingCycleMultiplier = billingCycleMultipliers[activeNestedTab] || 1;
     const billingAddonCycleMultiplier = billingAddonMultipliers[activeNestedTab] || 1;
     const staticBasePrice = pricing?.[activeTab]?.["Monthly"]?.price || price;
     const basePrice = pricing?.[activeTab]?.[activeNestedTab]?.price || price;
-
     const isLowSpeed = ["30 Mbps", "50 Mbps"].includes(activeTab);
     const isHighSpeed = ["100 Mbps", "200 Mbps", "300 Mbps", "500 Mbps", "1000 Mbps"].includes(activeTab);
-
     const isEligibleForInstallCost =
         (isLowSpeed && ["Monthly", "Quarterly"].includes(activeNestedTab)) ||
         (isHighSpeed && activeNestedTab === "Monthly");
@@ -49,15 +46,49 @@ export default function CustomPlans() {
     };
 
     const ottPrices = {
-        "21+ OTTs": 149,
-        "22+ OTTs": 249,
-        "29+ OTTs": 349,
+        "21+ OTTs": 0,
+        "22+ OTTs": 149,
+        "29+ OTTs": 249,
         "30+ OTTs": 349,
     };
-
-    const channelPrice = (channelPrices[activeChannel] || 0) * billingAddonCycleMultiplier;
+    const getOttPrice = (activeOtts) => {
+        const OTTprice = ottPrices[activeOtts] || 0;
+        return OTTprice === 0 ? 0 : OTTprice;
+    };
+    const getChannelPrice = (activeChannel) => {
+        const channelPrice = channelPrices[activeChannel] || 0;
+        return channelPrice === 0 ? 0 : channelPrice;
+    };
+    const isDisabled = (option) => {
+        const activePricing = pricing[activeTab]?.[activeNestedTab]?.ott;
+        const activeIndex = ottOptions.indexOf(activePricing);
+        const optionIndex = ottOptions.indexOf(option);
+        return optionIndex !== -1 && optionIndex < activeIndex;
+    };
+    const isDisabledChannel = (option) => {
+        const activePricing = pricing[activeTab]?.[activeNestedTab]?.tv;
+        return (
+            (activePricing === "550+ Channels" && option === "350+ Channels") ||
+            (activePricing === "650+ Channels" && ["550+ Channels", "350+ Channels"].includes(option)) ||
+            (activePricing === "950+ Channels" && option !== "950+ Channels")
+        );
+    };
+    const getLabel = (option) => {
+        const activePricing = pricing[activeTab]?.[activeNestedTab]?.ott;
+        if (isDisabled(option)) return "";
+        if (ottPrices[option] === 0) {
+            return "0";
+        }
+        return activePricing === option ? "0" : ` ${ottPrices[option]}`;
+    };
+    const getLabelChannel = (option) => {
+        const activePricing = pricing[activeTab]?.[activeNestedTab]?.tv;
+        if (isDisabledChannel(option)) return "";
+        return activePricing === option ? "0" : `${channelPrices[option]}`;
+    };
+    const channelPrice = (getChannelPrice(activeChannel) || 0) * billingAddonCycleMultiplier;
     
-    const ottPrice = (ottPrices[activeOtts] || 0) * billingAddonCycleMultiplier;
+    const ottPrice = (getOttPrice(activeOtts) || 0) * billingAddonCycleMultiplier;
 
     const totalPrice = Number(basePrice) + installationCost + channelPrice + ottPrice;
     const gstAmount = Math.round(totalPrice * 0.18);
@@ -112,10 +143,10 @@ export default function CustomPlans() {
                     <span className="feature-list-head">Speed</span> <span className="feature-list-ans">{activeTab}</span>
                 </span>
                 <span className="plan-details-feature-list">
-                    <span className="feature-list-head">Billing Cycle</span> <span className="feature-list-ans">{staticBasePrice} * {billingCycleMultiplier}</span>
+                    <span className="feature-list-head">Billing Cycle</span> <span className="feature-list-ans">₹{staticBasePrice} * {billingCycleMultiplier}</span>
                 </span>
                 <span className="plan-details-feature-list">
-                    <span className="feature-list-head">Installation</span> <span className="feature-list-ans">{installationCost}</span>
+                    <span className="feature-list-head">Installation</span> <span className="feature-list-ans">₹{installationCost}</span>
                 </span>
                 <div className="addon-price-wrap">
                     <h3>
@@ -123,7 +154,7 @@ export default function CustomPlans() {
                         </span></div>
                         <span className="feature-list-ans">
                         <span className="addon-price">
-                            <i style={{ fontSize: "10px" }} className="fas fa-rupee-sign"></i> {channelPrices[activeChannel] || 0} * {billingAddonCycleMultiplier}
+                            <i style={{ fontSize: "10px" }} className="fas fa-rupee-sign"></i> {getLabelChannel(activeChannel) || 0} * {billingAddonCycleMultiplier}
                         </span>
                         </span>
                     </h3>
@@ -136,7 +167,7 @@ export default function CustomPlans() {
                         OTT List - {activeOtts || pricing?.[activeTab]?.[activeNestedTab]?.ott}
                         <span className="feature-list-ans">
                         <span className="addon-price">
-                            <i style={{ fontSize: "10px" }} className="fas fa-rupee-sign"></i> {ottPrices[activeOtts] || 0} * {billingAddonCycleMultiplier}
+                            <i style={{ fontSize: "10px" }} className="fas fa-rupee-sign"></i> {getLabel(activeOtts) || 0} * {billingAddonCycleMultiplier}
                         </span>
                         </span>
                     </h3>  
@@ -152,7 +183,7 @@ export default function CustomPlans() {
                     {planMessage && (
                         <span
                             style={{
-                                fontSize: "14px",
+                                fontSize: "11px",
                                 color: "black",
                                 display: "block",
                                 marginTop: "10px",

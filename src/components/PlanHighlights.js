@@ -76,7 +76,6 @@ export default function PlanHighlights() {
         }
         return "";
     };
-    { console.log(pricing[activeTab]?.[activeNestedTab]?.benefits) }
     return (
         <>
             <tr className="benefitswrap" style={{ "display": "none" }}>
@@ -100,7 +99,7 @@ export default function PlanHighlights() {
                                 <div className="featuresWrap" key={`${activeTab}-benefit-${index}`}>
                                     <div className="table-channel">
                                         {benefit.name === "TV Channels" && (
-                                            <div className="tv-channels"><CurrentChannel benefit={benefit} activeChannel={activeChannel} setActiveChannel={setActiveChannel} /></div>
+                                            <div className="tv-channels tv-wrap"><CurrentChannel benefit={benefit} activeChannel={activeChannel} setActiveChannel={setActiveChannel} /></div>
                                         )}
                                         {benefit.name.startsWith("Billing Cycle") && (
                                         <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/billing-cycle.svg" /></div>)
@@ -112,7 +111,9 @@ export default function PlanHighlights() {
                                         <div className="tv-channels"> <img src="https://www.skylink.net.in/wp-content/uploads/2025/04/installation.svg" /></div>)
                                         }
                                         {benefit.name.startsWith("OTT") && ["21+ OTTs", "22+ OTTs", "29+ OTTs", "30+ OTTs"].includes(String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()) && (
+                                            <div className="tv-wrap">
                                             <CurrentOTT activeOtts={String(pricing[activeTab]?.[activeNestedTab]?.ott)?.trim()} activeTab={activeTab} activeNestedTab={activeNestedTab} />
+                                            </div>
                                         )}
                                     </div>
                                     <div className="featuresDescription"><div className="" key={`${activeTab}-benefit-${index}`}>{benefit.lite}</div></div>

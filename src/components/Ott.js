@@ -6,12 +6,8 @@ export default function Ott() {
 
     const isDisabled = (option) => {
         const activePricing = pricing[activeTab]?.[activeNestedTab]?.ott;
-        
-        // Get index of the activePricing and the option in the ottOptions array
         const activeIndex = ottOptions.indexOf(activePricing);
         const optionIndex = ottOptions.indexOf(option);
-        
-        // Disable option if it is lesser than the active plan
         return optionIndex !== -1 && optionIndex < activeIndex;
     };
     const getLabel = (option) => {
