@@ -7,7 +7,21 @@ const ottPackages = {
         "https://skylink.net.in/wp-content/uploads/2023/07/sonyliv.svg",
         "https://skylink.net.in/wp-content/uploads/2023/07/aha.svg",
     ],
+    "22+ OTTs": [
+        "https://skylink.net.in/wp-content/uploads/2025/02/jio-hotstrar.webp",
+        "https://skylink.net.in/wp-content/uploads/2023/07/sun-nxt-new.svg",
+        "https://skylink.net.in/wp-content/uploads/2023/07/ZEE5.svg",
+        "https://skylink.net.in/wp-content/uploads/2023/07/sonyliv.svg",
+        "https://skylink.net.in/wp-content/uploads/2023/07/aha.svg",
+    ],
     "29+ OTTs": [
+        "https://skylink.net.in/wp-content/uploads/2025/02/jio-hotstrar.webp",
+        "https://skylink.net.in/wp-content/uploads/2023/07/sun-nxt-new.svg",
+        "https://skylink.net.in/wp-content/uploads/2023/07/ZEE5.svg",
+        "https://skylink.net.in/wp-content/uploads/2023/07/sonyliv.svg",
+        "https://skylink.net.in/wp-content/uploads/2023/07/aha.svg",
+    ],
+    "30+ OTTs": [
         "https://skylink.net.in/wp-content/uploads/2025/02/jio-hotstrar.webp",
         "https://skylink.net.in/wp-content/uploads/2023/07/sun-nxt-new.svg",
         "https://skylink.net.in/wp-content/uploads/2023/07/ZEE5.svg",

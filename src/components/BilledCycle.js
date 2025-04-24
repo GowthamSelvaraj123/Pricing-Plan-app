@@ -3,7 +3,16 @@ import { usePlans } from '../PlansContext';
 
 export default function BilledCycle() {
     const { planOptions: { billedCycle }, activeNestedTab, setActiveNestedTab, checkCondition, setActiveChannel } = usePlans();
-
+    const getLabel = (option) => {
+       if(option == "Half Yearly")
+       {
+        return <span className="offer">(7.5% Offer) </span>;
+       }
+       else if(option == "Yearly")
+       {
+        return <span className="offer">(15% Offer)</span>;
+       }
+    };
     return (
         checkCondition && (
             <>
@@ -20,7 +29,7 @@ export default function BilledCycle() {
                                         setActiveNestedTab(option);
                                     }}
                                 >
-                                    {option}
+                                    {option} {getLabel(option)}
                                 </div>
                             ))}
                         </div>

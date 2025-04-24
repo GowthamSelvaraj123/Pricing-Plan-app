@@ -10,7 +10,7 @@ import CustomPlansMobile from '../components/CustomPlansMobile'
 export default function Tab() {
     return (
         <>
-                    <h1 style={{ textAlign: "left" }}>Get Customize Plans</h1>
+                    <h1 style={{ textAlign: "left" }}>Get Customized Plans</h1>
             <div className="tab-wrap" style={{ display: "flex" }}>
                 <div className="table-wrap">
                     <table>

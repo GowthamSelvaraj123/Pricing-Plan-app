@@ -13,9 +13,7 @@ export default function CurrentChannel({ activeChannel }) {
         "https://skylink.net.in/wp-content/uploads/2025/02/sun-tv.svg",
         "https://skylink.net.in/wp-content/uploads/2025/02/vijay-tv.webp",
         "https://skylink.net.in/wp-content/uploads/2025/02/zee-tamil.png",
-        "https://www.skylink.net.in/wp-content/uploads/2025/03/661-DD-TAMIL.png", 
         "https://www.skylink.net.in/wp-content/uploads/2025/03/tune-music.webp",
-        "https://www.skylink.net.in/wp-content/uploads/2025/03/britain-bhakti.jpg", 
         "https://www.skylink.net.in/wp-content/uploads/2025/03/ktv-logo.png", 
         "https://www.skylink.net.in/wp-content/uploads/2025/03/kalaignar_logo.png", 
     ];

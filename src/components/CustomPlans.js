@@ -51,13 +51,51 @@ export default function CustomPlans() {
         "29+ OTTs": 249,
         "30+ OTTs": 349,
     };
-    const getOttPrice = (activeOtts) => {
-        const OTTprice = ottPrices[activeOtts] || 0;
-        return OTTprice === 0 ? 0 : OTTprice;
+    const getOttPrice = (activeott) => {
+        const basePrice = pricing[activeTab]?.[activeNestedTab]?.ott === activeott ? 0 : ottPrices[activeott];
+
+        if (basePrice === 0) return 0;
+    
+        if (billingAddonCycleMultiplier === 6) {
+            return basePrice * 0.925;
+        } else if (billingAddonCycleMultiplier === 12) {
+            return basePrice * 0.85; 
+        }
+    
+        return basePrice;
     };
     const getChannelPrice = (activeChannel) => {
-        const channelPrice = channelPrices[activeChannel] || 0;
-        return channelPrice === 0 ? 0 : channelPrice;
+        const basePrice = pricing[activeTab]?.[activeNestedTab]?.tv === activeChannel ? 0 : channelPrices[activeChannel];
+        if (basePrice === 0) return 0;
+    
+        let finalPrice = basePrice;
+    
+        if (billingAddonCycleMultiplier === 6) {
+            finalPrice = basePrice * 0.925;
+        } else if (billingAddonCycleMultiplier === 12) {
+            finalPrice = basePrice * 0.85;
+        }
+    
+        return finalPrice;
+    };
+    const getOriginalPrice = () => {
+        if (basePrice === 0) return 0;
+        let finalPrice = basePrice;
+        if (billingAddonCycleMultiplier === 6) {
+            finalPrice = basePrice / 0.925;
+        } else if (billingAddonCycleMultiplier === 12) {
+            finalPrice = basePrice / 0.85;
+        }
+        return Math.round(finalPrice);
+    };
+    const getDiscountAmount = () => {
+        if (basePrice === 0) return 0;
+        if (billingAddonCycleMultiplier === 6) {
+            return Math.round((basePrice / 0.925 - basePrice));
+        } else if (billingAddonCycleMultiplier === 12) {
+            return Math.round((basePrice / 0.85 - basePrice));
+        }
+        return 0;
     };
     const isDisabled = (option) => {
         const activePricing = pricing[activeTab]?.[activeNestedTab]?.ott;
@@ -133,10 +171,6 @@ export default function CustomPlans() {
     return (
         <div className="custom-plan-inner-wrap">
             <div className="firstset">
-            <img  style={{"width":"100%"}}
-                        src="https://skylink.net.in/wp-content/uploads/2025/03/plan-webupdates.jpg"
-                        alt="Plan Update"
-                    />
             <h1 style={{ fontSize: "24px" }}>Selected Plan Details</h1>
             <div className="plan-details-features">
                 <span className="plan-details-feature-list">
@@ -178,7 +212,18 @@ export default function CustomPlans() {
             </div>
             </div>
             <div className="pricing-features">
-                <span className="price">
+            <div className="plan-details-features">
+            <span className="plan-details-feature-list">
+                    <span className="feature-list-head">Actula Price</span> <span className="feature-list-ans">₹{getOriginalPrice()}</span>
+            </span>
+            <span className="plan-details-feature-list">
+                    <span className="feature-list-head">Discount Amount</span> <span className="feature-list-ans">- ₹{getDiscountAmount()}</span>
+            </span>
+            <span className="plan-details-feature-list">
+                    <span className="feature-list-head">GST Inclusive</span> <span className="feature-list-ans">+ ₹{gstAmount}</span>
+            </span>
+            </div>
+                <span className="price" style={{"margin-top":"20px"}}>
                     Price: <i className="fas fa-rupee-sign"></i> {withGst}.00
                     {planMessage && (
                         <span
@@ -199,7 +244,7 @@ export default function CustomPlans() {
                         data-active-nested-tab={activeNestedTab}
                         data-active-channel={activeChannel}
                         data-active-otts={activeOtts}>Subscribe Now</button>
-                    <img  style={{"width":"100%", "display":"none"}}
+                    <img  style={{"width":"100%", "display":"block", "height": "360px", "object-fit": "cover", "object-position": "top"}}
                         src="https://skylink.net.in/wp-content/uploads/2025/03/plan-webupdates.jpg"
                         alt="Plan Update"
                     />
